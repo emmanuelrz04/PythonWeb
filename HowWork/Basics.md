@@ -1,4 +1,4 @@
-ANÁLOGIA
+   ANÁLOGIA
 
 1. USUÁRIO digita: http://127.0.0.1:5000/
                 ↓
