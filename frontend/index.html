@@ -1,16 +1,66 @@
 <!DOCTYPE html>
-<html>
+<html lang="pt-br">
 <head>
-    <title>MaidInDev</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Maid in Dev</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
 <body>
-    <h1>Bem-vindo ao MaidInDev!</h1>
-    <p>Site funcionando perfeitamente!</p>
+    <!-- Elementos decorativos -->
+    <div class="laco laco-1">🎀</div>
+    <div class="laco laco-2">👗</div>
     
-    <h2>Links:</h2>
-    <ul>
-        <li><a href="/">Página Inicial</a></li>
-        <li><a href="/sobre">Sobre</a></li>
-    </ul>
+    <div class="container">
+        <!-- Cabeçalho -->
+        <header>
+            <div class="logo">
+                Maid in Dev <span class="maid-chan">👗</span>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="/">Início</a></li>
+                    <li><a href="/sobre">Sobre</a></li>
+                </ul>
+            </nav>
+        </header>
+
+        <!-- Título principal -->
+        <h1>Últimas Notícias de Tecnologia</h1>
+        <p class="subtitulo">Com um toque especial de maid ✨</p>
+
+        <!-- Lista de categorias -->
+        <div class="categorias">
+            <h3>Categorias:</h3>
+            <ul class="categorias-lista">
+                {% for categoria in categorias %}
+                <li><a href="/categoria/{{ categoria }}">{{ categoria }}</a></li>
+                {% endfor %}
+            </ul>
+        </div>
+
+        <!-- Grade de notícias -->
+        <div class="noticias-grid">
+            {% for noticia in noticias %}
+            <div class="noticia-card">
+                <span class="noticia-categoria">{{ noticia.categoria }}</span>
+                <h3><a href="/noticia/{{ noticia.id }}">{{ noticia.titulo }}</a></h3>
+                <p class="noticia-resumo">{{ noticia.resumo }}</p>
+                <div class="noticia-meta">
+                    <span>👤 {{ noticia.autor }}</span>
+                    <span>📅 {{ noticia.data }}</span>
+                    <span>👁️ {{ noticia.visualizacoes }}</span>
+                </div>
+                <a href="/noticia/{{ noticia.id }}" class="btn-maid">Ler mais 🎀</a>
+            </div>
+            {% endfor %}
+        </div>
+
+        <!-- Rodapé -->
+        <footer>
+            <p>© 2026 Maid in Dev - Notícias de Tecnologia com Estética Maid</p>
+            <p>Feito com 💕 e 🎀 para fãs de animes e programação</p>
+        </footer>
+    </div>
 </body>
 </html>
