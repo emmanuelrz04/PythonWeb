@@ -1,5 +1,13 @@
    ANÁLOGIA
 
+Cliente senta e pede -->	Usuário digita URL
+Cozinha (backend) prepara --> Servidor Flask processa
+Garçom leva o pedido -->	Rota direciona a requisição
+Chef prepara a comida -->	Função Python executa
+Garçom entrega o prato -->	HTML é renderizado
+
+Em outra palavras:
+
 1. USUÁRIO digita: http://127.0.0.1:5000/
                 ↓
 2. NAVEGADOR envia REQUISIÇÃO para o servidor
