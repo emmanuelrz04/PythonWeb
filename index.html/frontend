@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>MaidInDev</title>
+</head>
+<body>
+    <h1>Bem-vindo ao MaidInDev!</h1>
+    <p>Site funcionando perfeitamente!</p>
+    
+    <h2>Links:</h2>
+    <ul>
+        <li><a href="/">Página Inicial</a></li>
+        <li><a href="/sobre">Sobre</a></li>
+    </ul>
+</body>
+</html>
