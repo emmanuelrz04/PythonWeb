@@ -4,19 +4,445 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Maid in Dev</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    
+    <!-- FAVICON -->
+    <link rel="shortcut icon" href="{{ url_for('static', filename='images/favicon.ico') }}">
+    
+    <!-- GOOGLE FONTS -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* ============================================
+           MAID IN DEV - PÁGINA PRINCIPAL
+           ESTILO: SUPER BONITO (IGUAL AO SOBRE)
+           ============================================ */
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Quicksand', 'Segoe UI', sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #fff0f5 0%, #fce4ec 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 40px;
+            padding: 45px;
+            border: 2px solid rgba(255, 158, 181, 0.5);
+            box-shadow: 0 20px 40px rgba(255, 158, 181, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        /* EFEITO DE BRILHO */
+        .container::before {
+            content: "";
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.3) 0%, transparent 70%);
+            animation: brilho 15s infinite;
+            pointer-events: none;
+        }
+        
+        @keyframes brilho {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        /* ============================================
+           CABEÇALHO
+           ============================================ */
+        header {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            gap: 15px;
+            padding: 35px;
+            background: linear-gradient(135deg, #ffb6c1, #e6a8d7, #c4a1ff);
+            background-size: 200% 200%;
+            border-radius: 35px;
+            margin-bottom: 40px;
+            border: 4px solid white;
+            box-shadow: 0 8px 0 #ff7b9c, 0 15px 30px rgba(255, 123, 156, 0.3);
+            animation: gradientBG 5s ease infinite;
+        }
+        
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        
+        .logo img {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            border: 4px solid white;
+            box-shadow: 0 5px 0 #ff7b9c, 0 10px 20px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+            animation: float 4s ease-in-out infinite;
+        }
+        
+        .logo img:hover {
+            transform: scale(1.05) rotate(5deg);
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+        
+        .site-title {
+            font-size: 42px;
+            color: white;
+            text-shadow: 4px 4px 0 #ff7b9c, 6px 6px 0 rgba(0,0,0,0.1);
+            margin: 10px 0;
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 20px;
+            margin-top: 10px;
+        }
+        
+        nav ul li a {
+            text-decoration: none;
+            color: white;
+            font-weight: 600;
+            font-size: 18px;
+            padding: 10px 25px;
+            border-radius: 40px;
+            background: rgba(255, 255, 255, 0.2);
+            border: 2px solid rgba(255, 255, 255, 0.5);
+            transition: all 0.3s;
+        }
+        
+        nav ul li a:hover {
+            background: white;
+            color: #b3005c;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 0 #ff7b9c;
+        }
+        
+        /* ============================================
+           TÍTULOS - CENTRALIZADOS
+           ============================================ */
+        h1 {
+            color: #b3005c;
+            font-size: 40px;
+            margin: 40px 0 20px;
+            font-weight: 700;
+            position: relative;
+            display: block;
+            text-align: center;  /* CENTRALIZADO! */
+            width: 100%;
+        }
+        
+        h1::before,
+        h1::after {
+            content: "🎀";
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 30px;
+            opacity: 0.5;
+        }
+        
+        h1::before {
+            left: 20px;  /* Ajustado para centralização */
+        }
+        
+        h1::after {
+            right: 20px;  /* Ajustado para centralização */
+        }
+        
+        .subtitulo {
+            color: #666;
+            font-size: 18px;
+            margin-bottom: 30px;
+            font-weight: 500;
+            font-style: italic;
+            text-align: center;  /* CENTRALIZADO! */
+        }
+        
+        /* ============================================
+           CATEGORIAS
+           ============================================ */
+        .categorias {
+            margin: 30px 0;
+        }
+        
+        .categorias h3 {
+            color: #b3005c;
+            font-size: 24px;
+            margin-bottom: 20px;
+            font-weight: 600;
+            position: relative;
+            padding-left: 40px;
+        }
+        
+        .categorias h3::before {
+            content: "✨";
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 24px;
+            animation: sparkle 2s infinite;
+        }
+        
+        @keyframes sparkle {
+            0%, 100% { opacity: 1; transform: translateY(-50%) scale(1); }
+            50% { opacity: 0.7; transform: translateY(-50%) scale(1.2); }
+        }
+        
+        .categorias-lista {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            list-style: none;
+        }
+        
+        .categorias-lista li a {
+            display: inline-block;
+            padding: 10px 25px;
+            background: linear-gradient(135deg, #fff0f5, #ffe4ec);
+            border-radius: 40px;
+            text-decoration: none;
+            color: #b3005c;
+            font-weight: 600;
+            border: 2px solid #ff9eb5;
+            transition: all 0.3s;
+            box-shadow: 0 3px 0 #ff7b9c;
+        }
+        
+        .categorias-lista li a:hover {
+            background: linear-gradient(135deg, #ff9eb5, #ff7b9c);
+            color: white;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 0 #b3005c;
+        }
+        
+        /* ============================================
+           GRADE DE NOTÍCIAS
+           ============================================ */
+        .noticias-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 30px;
+            margin: 40px 0;
+        }
+        
+        /* ============================================
+           CARD DE NOTÍCIA
+           ============================================ */
+        .noticia-card {
+            background: white;
+            border-radius: 30px;
+            padding: 25px;
+            border: 3px solid #ff9eb5;
+            box-shadow: 0 8px 0 #ff7b9c, 0 15px 30px rgba(255, 123, 156, 0.2);
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .noticia-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 0 #b3005c, 0 20px 40px rgba(179, 0, 92, 0.3);
+        }
+        
+        .noticia-card::before {
+            content: "🎀";
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 24px;
+            opacity: 0.3;
+            transform: rotate(15deg);
+        }
+        
+        .noticia-categoria {
+            display: inline-block;
+            background: linear-gradient(135deg, #d4b1ff, #b39ddb);
+            color: white;
+            padding: 6px 18px;
+            border-radius: 40px;
+            font-size: 13px;
+            font-weight: 600;
+            margin-bottom: 15px;
+            border: 2px solid white;
+            box-shadow: 0 3px 0 #7b1fa2;
+        }
+        
+        .noticia-card h3 {
+            font-size: 22px;
+            margin: 15px 0;
+            line-height: 1.4;
+        }
+        
+        .noticia-card h3 a {
+            text-decoration: none;
+            color: #2c3e50;
+            font-weight: 700;
+            transition: color 0.3s;
+        }
+        
+        .noticia-card h3 a:hover {
+            color: #b3005c;
+        }
+        
+        .noticia-resumo {
+            color: #555;
+            line-height: 1.7;
+            margin: 15px 0;
+            font-size: 15px;
+        }
+        
+        .noticia-meta {
+            display: flex;
+            justify-content: space-between;
+            color: #888;
+            font-size: 13px;
+            border-top: 2px dashed #ff9eb5;
+            padding-top: 15px;
+            margin: 15px 0;
+        }
+        
+        .noticia-meta span {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        /* ============================================
+           BOTÃO LER MAIS
+           ============================================ */
+        .btn-maid {
+            display: inline-block;
+            background: linear-gradient(135deg, #ff9eb5, #ff7b9c);
+            color: white;
+            padding: 12px 30px;
+            border-radius: 40px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 15px;
+            border: 3px solid white;
+            box-shadow: 0 4px 0 #b3005c;
+            transition: all 0.3s;
+            width: 100%;
+            text-align: center;
+        }
+        
+        .btn-maid:hover {
+            background: linear-gradient(135deg, #ff7b9c, #b3005c);
+            transform: translateY(-3px);
+            box-shadow: 0 7px 0 #7a0033;
+        }
+        
+        /* ============================================
+           RODAPÉ
+           ============================================ */
+        footer {
+            text-align: center;
+            margin-top: 60px;
+            padding: 35px;
+            background: linear-gradient(135deg, #ffb6c1, #d4b1ff);
+            border-radius: 30px;
+            color: white;
+            border: 4px solid white;
+            box-shadow: 0 8px 0 #ff7b9c;
+            position: relative;
+        }
+        
+        footer::before {
+            content: "🎀 🎀 🎀";
+            position: absolute;
+            top: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: white;
+            padding: 8px 30px;
+            border-radius: 40px;
+            color: #b3005c;
+            font-size: 20px;
+            box-shadow: 0 4px 0 #ff7b9c;
+            white-space: nowrap;
+        }
+        
+        footer p {
+            margin: 10px 0;
+            font-size: 16px;
+            font-weight: 500;
+            text-shadow: 2px 2px 0 rgba(0,0,0,0.1);
+        }
+        
+        footer p:first-child {
+            font-weight: 700;
+            font-size: 18px;
+            margin-top: 20px;
+        }
+        
+        /* ============================================
+           RESPONSIVIDADE
+           ============================================ */
+        @media (max-width: 768px) {
+            .container {
+                padding: 25px;
+            }
+            
+            h1 {
+                font-size: 32px;
+            }
+            
+            h1::before,
+            h1::after {
+                font-size: 24px;
+                left: 10px;
+                right: 10px;
+            }
+            
+            .noticias-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            nav ul {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .categorias-lista {
+                justify-content: center;
+            }
+        }
+    </style>
 </head>
 <body>
-    <!-- Elementos decorativos -->
-    <div class="laco laco-1">🎀</div>
-    <div class="laco laco-2">👗</div>
-    
     <div class="container">
-        <!-- Cabeçalho -->
+        <!-- CABEÇALHO -->
         <header>
             <div class="logo">
-                Maid in Dev <span class="maid-chan">👗</span>
+                <img src="/static/images/favicon.png" alt="Maid">
             </div>
+            <h1 class="site-title">Maid in Dev</h1>
             <nav>
                 <ul>
                     <li><a href="/">Início</a></li>
@@ -25,11 +451,11 @@
             </nav>
         </header>
 
-        <!-- Título principal -->
+        <!-- TÍTULO PRINCIPAL CENTRALIZADO -->
         <h1>Últimas Notícias de Tecnologia</h1>
         <p class="subtitulo">Com um toque especial de maid ✨</p>
 
-        <!-- Lista de categorias -->
+        <!-- CATEGORIAS -->
         <div class="categorias">
             <h3>Categorias:</h3>
             <ul class="categorias-lista">
@@ -39,7 +465,7 @@
             </ul>
         </div>
 
-        <!-- Grade de notícias -->
+        <!-- GRADE DE NOTÍCIAS -->
         <div class="noticias-grid">
             {% for noticia in noticias %}
             <div class="noticia-card">
@@ -56,7 +482,7 @@
             {% endfor %}
         </div>
 
-        <!-- Rodapé -->
+        <!-- RODAPÉ -->
         <footer>
             <p>© 2026 Maid in Dev - Notícias de Tecnologia com Estética Maid</p>
             <p>Feito com 💕 e 🎀 para fãs de animes e programação</p>
