@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sobre - Maid in Dev</title>
+    
+    <!-- FAVICON -->
+    <link rel="shortcut icon" href="{{ url_for('static', filename='images/favicon.ico') }}">
+    
+    <style>
+        /* ============================================
+           MAID IN DEV - PÁGINA SOBRE
+           ============================================ */
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Arial, sans-serif;
+        }
+        
+        body {
+            background-color: #fdf0f5;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 10px;
+            padding: 30px;
+            border: 2px solid #ff9eb5;
+        }
+        
+        /* ============================================
+           CABEÇALHO COM QUADRADO ROSA (IGUAL AO INDEX)
+           ============================================ */
+        header {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            gap: 15px;
+            padding: 30px;
+            background: linear-gradient(135deg, #ff9eb5, #d4b1ff);
+            border-radius: 15px;
+            margin-bottom: 30px;
+            border: 3px solid white;
+            box-shadow: 0 5px 0 #ff7b9c;
+        }
+        
+        .logo img {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            border: 3px solid white;
+        }
+        
+        .site-title {
+            font-size: 36px;
+            color: white;
+            text-shadow: 3px 3px 0 #ff7b9c;
+            margin: 10px 0;
+        }
+        
+        /* ============================================
+           TÍTULOS
+           ============================================ */
+        .sobre-title {
+            color: #b3005c;
+            font-size: 32px;
+            margin: 30px 0 20px;
+        }
+        
+        .sobre-section-title {
+            color: #b3005c;
+            font-size: 24px;
+            margin: 20px 0 10px;
+        }
+        
+        /* LINHAS */
+        hr {
+            border: none;
+            border-top: 2px solid #ff9eb5;
+            margin: 20px 0;
+        }
+        
+        /* TEXTOS */
+        .sobre-text {
+            color: #1a1a1a;
+            line-height: 1.8;
+            margin-bottom: 15px;
+        }
+        
+        /* LISTAS */
+        .sobre-list {
+            margin-left: 30px;
+            margin-bottom: 20px;
+        }
+        
+        .sobre-list li {
+            color: #1a1a1a;
+            line-height: 1.8;
+            margin-bottom: 8px;
+        }
+        
+        .sobre-list li strong {
+            color: #b3005c;
+            font-weight: bold;
+        }
+        
+        /* BOTÃO DE VOLTAR */
+        .voltar-container {
+            text-align: center;
+            margin: 40px 0 20px;
+        }
+        
+        .btn-voltar {
+            display: inline-block;
+            background-color: #ff9eb5;
+            color: white;
+            padding: 12px 40px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 16px;
+            border: 2px solid white;
+            box-shadow: 0 3px 0 #ff7b9c;
+            transition: all 0.3s;
+        }
+        
+        .btn-voltar:hover {
+            background-color: #ff7b9c;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 0 #ff7b9c;
+        }
+        
+        /* RODAPÉ */
+        footer {
+            text-align: center;
+            margin-top: 30px;
+            padding: 20px;
+            background: linear-gradient(135deg, #ff9eb5, #d4b1ff);
+            border-radius: 10px;
+            color: white;
+            border: 3px solid white;
+        }
+        
+        footer p {
+            margin: 5px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- CABEÇALHO COM QUADRADO ROSA (IGUAL AO INDEX) -->
+        <header>
+            <div class="logo">
+            <img src="/static/images/favicon.png" alt="Maid">
+            </div>
+            <h1 class="site-title">Maid in Dev</h1>
+        </header>
+
+        <!-- TÍTULO PRINCIPAL -->
+        <h1 class="sobre-title">Sobre o Maid in Dev</h1>
+
+        <hr>
+
+        <!-- SEÇÃO 1 -->
+        <h2 class="sobre-section-title">Quem Somos</h2>
+        <p class="sobre-text">Maid in Dev é um site de notícias de tecnologia com estética maid de animes. Criado por fãs de animes e programação para a comunidade.</p>
+
+        <hr>
+
+        <!-- SEÇÃO 2 -->
+        <h2 class="sobre-section-title">Nossa Missão</h2>
+        <p class="sobre-text">Trazer notícias de tecnologia de forma fofa e acessível, combinando a elegância das maids com o mundo da programação.</p>
+
+        <hr>
+
+        <!-- SEÇÃO 3 -->
+        <h2 class="sobre-section-title">Nossa Equipe</h2>
+        <p class="sobre-text">Somos um grupo de desenvolvedores que amam animes e tecnologia. Cada notícia é escrita com carinho pela nossa equipe de maids digitais.</p>
+        <ul class="sobre-list">
+            <li><strong>Maid-chan</strong> - Editora-chefe</li>
+            <li><strong>Dev-sama</strong> - Desenvolvedor</li>
+            <li><strong>IA-chan</strong> - Redatora de IA</li>
+            <li><strong>Flask-sensei</strong> - Especialista em Backend</li>
+        </ul>
+
+        <hr>
+
+        <!-- SEÇÃO 4 -->
+        <h2 class="sobre-section-title">Contato</h2>
+        <ul class="sobre-list">
+            <li>📩 contato@maidindev.com</li>
+            <li>🐦 @maidindev</li>
+            <li>📷 @maidindev</li>
+        </ul>
+
+        <!-- BOTÃO DE VOLTAR -->
+        <div class="voltar-container">
+            <a href="/" class="btn-voltar">← Voltar para o Início</a>
+        </div>
+
+        <!-- RODAPÉ -->
+        <footer>
+            <p>© 2026 Maid in Dev - Notícias de Tecnologia com Estética Maid</p>
+            <p>Feito com 💕 e 🎀 para fãs de animes e programação</p>
+        </footer>
+    </div>
+</body>
+</html>
