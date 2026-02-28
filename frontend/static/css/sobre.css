@@ -1,0 +1,78 @@
+
+/* Reset apenas para a página sobre */
+.sobre-title {
+    color: #b3005c;
+    font-size: 32px;
+    margin: 30px 0 20px;
+    font-weight: bold;
+    border-left: none !important;
+    padding-left: 0 !important;
+}
+
+.sobre-title::after,
+.sobre-title::before {
+    display: none !important;
+    content: none !important;
+}
+
+hr {
+    border: none;
+    border-top: 2px solid #ff9eb5;
+    margin: 25px 0;
+}
+
+.sobre-section-title {
+    color: #b3005c;
+    font-size: 24px;
+    margin: 20px 0 10px;
+    font-weight: bold;
+    border-left: none !important;
+    padding-left: 0 !important;
+}
+
+.sobre-section-title::after,
+.sobre-section-title::before {
+    display: none !important;
+    content: none !important;
+}
+
+.sobre-text {
+    color: #1a1a1a;
+    line-height: 1.8;
+    font-size: 16px;
+    margin-bottom: 15px;
+}
+
+.sobre-list {
+    margin-left: 30px;
+    margin-bottom: 20px;
+}
+
+.sobre-list li {
+    color: #1a1a1a;
+    line-height: 1.8;
+    font-size: 16px;
+    margin-bottom: 5px;
+}
+
+.voltar-container {
+    text-align: center;
+    margin: 40px 0 20px;
+}
+
+.btn-voltar {
+    display: inline-block;
+    background-color: #ff9eb5;
+    color: white;
+    padding: 12px 40px;
+    border-radius: 30px;
+    text-decoration: none;
+    font-weight: bold;
+    border: 2px solid white;
+    box-shadow: 0 3px 0 #ff7b9c;
+}
+
+.btn-voltar:hover {
+    background-color: #ff7b9c;
+    transform: translateY(-2px);
+}
