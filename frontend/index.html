@@ -152,7 +152,7 @@
             font-weight: 700;
             position: relative;
             display: block;
-            text-align: center;  /* CENTRALIZADO! */
+            text-align: center;
             width: 100%;
         }
         
@@ -167,11 +167,11 @@
         }
         
         h1::before {
-            left: 20px;  /* Ajustado para centralização */
+            left: 20px;
         }
         
         h1::after {
-            right: 20px;  /* Ajustado para centralização */
+            right: 20px;
         }
         
         .subtitulo {
@@ -180,7 +180,7 @@
             margin-bottom: 30px;
             font-weight: 500;
             font-style: italic;
-            text-align: center;  /* CENTRALIZADO! */
+            text-align: center;
         }
         
         /* ============================================
@@ -438,15 +438,42 @@
 <body>
     <div class="container">
         <!-- CABEÇALHO -->
+                <!-- CABEÇALHO (já existente) -->
         <header>
             <div class="logo">
                 <img src="/static/images/favicon.png" alt="Maid">
             </div>
             <h1 class="site-title">Maid in Dev</h1>
             <nav>
-                <ul>
-                    <li><a href="/">Início</a></li>
-                    <li><a href="/sobre">Sobre</a></li>
+                <ul style="display: flex; list-style: none; gap: 15px; margin-top: 10px;">
+                    <!-- BOTÃO INÍCIO -->
+                    <li>
+                        <a href="/" style="display: inline-block; background: #b3005c; color: white; padding: 10px 25px; border-radius: 40px; text-decoration: none; font-weight: 600; font-size: 16px; border: 2px solid white; transition: all 0.3s; box-shadow: 0 3px 0 #7a0033;" 
+                           onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 5px 0 #7a0033'"
+                           onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 3px 0 #7a0033'">
+                            Início
+                        </a>
+                    </li>
+                    
+                    <!-- BOTÃO SOBRE -->
+                    <li>
+                        <a href="/sobre" style="display: inline-block; background: #b3005c; color: white; padding: 10px 25px; border-radius: 40px; text-decoration: none; font-weight: 600; font-size: 16px; border: 2px solid white; transition: all 0.3s; box-shadow: 0 3px 0 #7a0033;"
+                           onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 5px 0 #7a0033'"
+                           onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 3px 0 #7a0033'">
+                            Sobre
+                        </a>
+                    </li>
+                    
+                    <!-- BOTÃO LOGIN (SÓ SE NÃO ESTIVER LOGADO) -->
+                    {% if not admin_logado %}
+                    <li>
+                        <a href="/admin/login" style="display: inline-block; background: #b3005c; color: white; padding: 10px 25px; border-radius: 40px; text-decoration: none; font-weight: 600; font-size: 16px; border: 2px solid white; transition: all 0.3s; box-shadow: 0 3px 0 #7a0033;"
+                           onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 5px 0 #7a0033'"
+                           onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 3px 0 #7a0033'">
+                             Login
+                        </a>
+                    </li>
+                    {% endif %}
                 </ul>
             </nav>
         </header>
@@ -488,5 +515,27 @@
             <p>Feito com 💕 e 🎀 para fãs de animes e programação</p>
         </footer>
     </div>
+    
+    <!-- ============================================
+         BOTÃO FLUTUANTE DO ADMIN (SÓ APARECE QUANDO LOGADO)
+         ============================================ -->
+    {% if admin_logado %}
+    <div style="position: fixed; bottom: 30px; right: 30px; z-index: 1000;">
+        <a href="/admin/painel" 
+           style="display: flex; align-items: center; gap: 10px;
+                  background: linear-gradient(135deg, #ff9eb5, #b3005c); 
+                  color: white; padding: 15px 25px; border-radius: 50px; 
+                  text-decoration: none; font-weight: bold;
+                  box-shadow: 0 5px 15px rgba(179, 0, 92, 0.4);
+                  border: 3px solid white;
+                  transition: all 0.3s;
+                  font-size: 16px;"
+           onmouseover="this.style.transform='scale(1.05)'"
+           onmouseout="this.style.transform='scale(1)'">
+            <span style="font-size: 20px;">⚙️</span> Painel Admin
+        </a>
+    </div>
+    {% endif %}
+    
 </body>
 </html>
