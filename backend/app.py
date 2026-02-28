@@ -1,235 +1,367 @@
 # ============================================
-# MAID IN DEV - SITE DE NOTÍCIAS DE TECNOLOGIA
-# ESTILO: MAID DE ANIMES
+# IMPORTAÇÕES - Pegando ferramentas que vamos usar
 # ============================================
 
-# Importando as ferramentas necessárias do Flask
-# Flask: framework para criar sites
-# render_template: função para mostrar páginas HTML
-from flask import Flask, render_template
+# Flask é o框架 web. Importamos várias ferramentas dele:
+# - Flask: cria a aplicação
+# - render_template: mostra arquivos HTML
+# - request: pega dados de formulários
+# - redirect: manda usuário para outra página
+# - url_for: cria links dinâmicos
+# - session: guarda informações do usuário logado
+from flask import Flask, render_template, request, redirect, url_for, session
+
+# json: permite ler e escrever arquivos .json (nossas notícias)
+import json
+
+# os: permite verificar se arquivos existem no sistema
+import os
 
 # ============================================
-# PASSO 1: CRIAR A APLICAÇÃO
+# CRIAÇÃO DA APLICAÇÃO
 # ============================================
-# __name__ é uma variável especial do Python que representa o nome do arquivo atual
-# O Flask usa isso para encontrar os arquivos do site (templates, imagens, etc)
+
+# Cria o site. O __name__ ajuda o Flask a encontrar pastas e arquivos
 app = Flask(__name__)
 
-# ============================================
-# PASSO 2: CRIAR O BANCO DE DADOS FICTÍCIO (LISTA DE NOTÍCIAS)
-# ============================================
-# No lugar de um banco de dados de verdade, usamos uma lista de dicionários
-# Cada dicionário é uma notícia
-noticias = [
-    {
-        'id': 1,  # Identificador único da notícia
-        'titulo': 'Nova versão do Python é lançada com recursos inspirados em animes',  # Título chamativo
-        'resumo': 'A versão 3.12 traz melhorias de performance e uma nova biblioteca para criar assistentes virtuais com estética anime.',  # Resumo curto
-        'conteudo': '''
-            <p>A comunidade Python está em festa com o lançamento da versão 3.12, que inclui recursos inovadores 
-            inspirados no universo dos animes. A nova biblioteca "MaidAI" permite criar assistentes virtuais 
-            com personalidade de maid, perfeitas para sites temáticos.</p>
-            
-            <p>Os desenvolvedores agora podem implementar personagens que interagem com os usuários de forma 
-            divertida e estilosa. A biblioteca inclui mais de 50 expressões faciais no estilo anime e 
-            vozes personalizáveis.</p>
-            
-            <p>O criador da biblioteca, conhecido como "Sensei-Dev", comentou: "Queria trazer a fofura das maids 
-            para o mundo da programação. Agora qualquer site pode ter sua própria maid digital!"</p>
-        ''',  # Conteúdo completo em HTML
-        'autor': 'Maid-chan',  # Nome do autor (tema maid)
-        'data': '22 de Fevereiro de 2026',  # Data da publicação
-        'categoria': 'Programação',  # Categoria da notícia
-        'imagem': 'url_da_imagem_python.jpg',  # Nome da imagem (placeholder)
-        'visualizacoes': 1337  # Número de visualizações (número maneiro)
-    },
-    {
-        'id': 2,
-        'titulo': 'VS Code ganha tema oficial "Maid Mode" com avental animado',
-        'resumo': 'A Microsoft lançou uma extensão que transforma sua IDE em uma maid virtual enquanto você codifica.',
-        'conteudo': '''
-            <p>O editor de código mais usado do mundo agora pode se transformar em uma maid virtual! A extensão 
-            "Maid Mode" para VS Code adiciona um personagem animado que fica no canto da tela usando um avental 
-            e ajudando o programador com dicas de código.</p>
-            
-            <p>A personagem, chamada "Code-chan", reage ao que você está digitando. Se você cometer um erro, 
-            ela faz uma expressão triste. Se acertar um código complexo, ela comemora com sparkles!</p>
-            
-            <p>A extensão já tem mais de 100 mil downloads e está entre as mais baixadas da semana. 
-            "Programar nunca foi tão fofo", comentou um usuário no Twitter.</p>
-        ''',
-        'autor': 'Dev-sama',
-        'data': '21 de Fevereiro de 2026',
-        'categoria': 'Ferramentas',
-        'imagem': 'url_da_imagem_vscode.jpg',
-        'visualizacoes': 2500
-    },
-    {
-        'id': 3,
-        'titulo': 'Inteligência Artificial cria personagens maid em segundos',
-        'resumo': 'Nova ferramenta de IA gera artes de maid personalizadas apenas com descrições em texto.',
-        'conteudo': '''
-            <p>A empresa AnimeTech lançou uma IA especializada em criar personagens no estilo maid. Basta 
-            descrever características como cor do cabelo, estilo de avental e expressão facial, e a IA gera 
-            uma arte única em poucos segundos.</p>
-            
-            <p>A ferramenta está sendo usada por desenvolvedores para criar mascotes para seus sites e 
-            aplicativos. "Antes eu precisava contratar um ilustrador. Agora eu mesmo posso criar minha 
-            própria maid digital", comemorou um usuário.</p>
-            
-            <p>A IA entende mais de 200 estilos diferentes de avental e 50 tipos de laços. Também é possível 
-            gerar animações simples da personagem acenando ou piscando.</p>
-        ''',
-        'autor': 'IA-chan',
-        'data': '20 de Fevereiro de 2026',
-        'categoria': 'Inteligência Artificial',
-        'imagem': 'url_da_imagem_ia.jpg',
-        'visualizacoes': 890
-    },
-    {
-        'id': 4,
-        'titulo': 'Framework web "Flask" completa 15 anos com tema especial',
-        'resumo': 'Comunidade celebra aniversário do micro-framework com camiseta temática de maid.',
-        'conteudo': '''
-            <p>O Flask, um dos frameworks web mais amados do Python, completou 15 anos. Para celebrar, 
-            a comunidade lançou uma edição limitada de camisetas com o logotipo do Flask vestido de maid.</p>
-            
-            <p>"O Flask é simples, elegante e eficiente - assim como uma boa maid", brincou o criador do 
-            framework em seu blog. "Nada mais justo que homenagear essa estética tão amada pelos 
-            desenvolvedores."</p>
-            
-            <p>A camiseta já está em pré-venda e todo o lucro será doado para projetos de ensino de 
-            programação para jovens.</p>
-        ''',
-        'autor': 'Flask-sensei',
-        'data': '19 de Fevereiro de 2026',
-        'categoria': 'Web',
-        'imagem': 'url_da_imagem_flask.jpg',
-        'visualizacoes': 420
-    }
-]
+# Chave secreta para criptografar as sessões (login)
+# Se mudar isso, todos os logins são invalidados!
+app.secret_key = 'maid-secreta-2026'
 
 # ============================================
-# PASSO 3: CRIAR A LISTA DE CATEGORIAS
+# CONFIGURAÇÃO DO ADMIN
 # ============================================
-# Extraímos as categorias únicas das notícias
-# Isso ajuda a filtrar notícias por categoria depois
-categorias = []
-for noticia in noticias:
-    # Se a categoria ainda não estiver na lista, adiciona
-    if noticia['categoria'] not in categorias:
-        categorias.append(noticia['categoria'])
+
+# Dados do administrador (VOCÊ!)
+# Mude a senha depois para algo mais seguro
+ADMIN_USER = "teste"
+ADMIN_PASS = "teste"
 
 # ============================================
-# PASSO 4: ROTA PRINCIPAL (PÁGINA INICIAL)
+# FUNÇÃO QUE ENVIA STATUS DO ADMIN PARA TODAS AS PÁGINAS
 # ============================================
-# @app.route("/") é um "decorador" - ele diz ao Flask:
-# "Quando alguém acessar a URL / (raiz do site), execute esta função"
+
+# @app.context_processor significa: esta função roda em TODAS as páginas
+# e envia variáveis para o HTML automaticamente
+@app.context_processor
+def inject_admin_status():
+    """Disponibiliza a variável admin_logado para todos os templates"""
+    
+    # Tenta pegar da sessão se o admin está logado.
+    # Se não existir, assume False (não logado)
+    admin_status = session.get('admin_logado', False)
+    
+    # Mostra no terminal (para debug) se o admin está logado ou não
+    print(f"🔍 DEBUG: admin_logado = {admin_status}")
+    
+    # Envia a variável 'admin_logado' para TODOS os HTMLs
+    # Assim qualquer página pode fazer {% if admin_logado %}
+    return dict(admin_logado=admin_status)
+
+# ============================================
+# ROTA DE TESTE - Força admin logado (pode remover depois)
+# ============================================
+
+# @app.route cria um endereço na web
+# Quando alguém acessar /forcar-admin, esta função roda
+@app.route("/forcar-admin")
+def forcar_admin():
+    # Força a sessão a dizer que admin está logado
+    session['admin_logado'] = True
+    # Mostra mensagem na tela
+    return "Agora você é admin! Volte para a página inicial."
+
+# ============================================
+# FUNÇÕES PARA LER E SALVAR NOTÍCIAS
+# ============================================
+
+def ler_noticias():
+    """Lê as notícias do arquivo JSON"""
+    
+    # Verifica se o arquivo noticias.json existe (evita erro)
+    if os.path.exists('noticias.json'):
+        # Abre o arquivo para leitura ('r'), com codificação UTF-8 (permite acentos)
+        with open('noticias.json', 'r', encoding='utf-8') as f:
+            # json.load() converte o JSON para lista Python
+            return json.load(f)
+    
+    # Se o arquivo não existir, retorna lista vazia
+    return []
+
+def salvar_noticias(noticias):
+    """Salva as notícias no arquivo JSON"""
+    
+    # Abre o arquivo para escrita ('w'), com codificação UTF-8
+    with open('noticias.json', 'w', encoding='utf-8') as f:
+        # json.dump() converte lista Python para JSON e salva
+        # indent=4 formata o JSON bonitinho (com espaços)
+        # ensure_ascii=False permite acentos e emojis
+        json.dump(noticias, f, indent=4, ensure_ascii=False)
+
+# ============================================
+# ROTAS PÚBLICAS (TODOS PODEM VER)
+# ============================================
+
+# @app.route("/") significa: quando alguém acessar a RAIZ do site...
 @app.route("/")
 def home():
-    """
-    Função que controla a página inicial do site.
-    Mostra todas as notícias em ordem (da mais nova para a mais velha).
-    """
-    # Invertendo a lista para mostrar as notícias mais novas primeiro
-    # [::-1] é um "slice" que significa: do início ao fim, mas de trás pra frente
-    noticias_recentes = noticias[::-1]
+    """Página inicial - mostra todas as notícias"""
     
-    # render_template = função que procura um arquivo HTML na pasta 'templates'
-    # e envia dados do Python para ele
+    # Chama a função que lê as notícias do JSON
+    noticias = ler_noticias()
+    
+    # noticias[::-1] inverte a lista (do fim para o começo)
+    # Assim a notícia mais nova (última da lista) aparece primeiro
+    noticias = noticias[::-1]
+    
+    # Pega as categorias de todas as notícias
+    # [n['categoria'] for n in noticias] cria lista com todas as categorias
+    # set() remove duplicatas
+    # list() converte de volta para lista
+    categorias = list(set([n['categoria'] for n in noticias]))
+    
+    # render_template mostra o arquivo HTML e envia dados para ele
     # Estamos enviando:
-    # - noticias: a lista completa de notícias
-    # - categorias: lista de categorias para o menu
-    return render_template(
-        'index.html',
-        noticias=noticias_recentes,
-        categorias=categorias
-    )
+    # - noticias: lista de notícias
+    # - categorias: lista de categorias únicas
+    return render_template('index.html', noticias=noticias, categorias=categorias)
 
-# ============================================
-# PASSO 5: ROTA PARA FILTRAR POR CATEGORIA
-# ============================================
-# <categoria> é um "parâmetro dinâmico" - pode ser qualquer texto
-# Exemplo: /categoria/Programação mostra só notícias de programação
+@app.route("/sobre")
+def sobre():
+    """Página Sobre - informações do site"""
+    
+    # Mostra o arquivo sobre.html (sem enviar dados)
+    return render_template('sobre.html')
+
+# <categoria> significa: este pedaço da URL é uma VARIÁVEL
+# Exemplo: /categoria/Programação faz categoria = "Programação"
 @app.route("/categoria/<categoria>")
 def noticias_por_categoria(categoria):
-    """
-    Filtra as notícias por categoria.
-    Exibe apenas as notícias que pertencem à categoria escolhida.
-    """
-    # List comprehension: uma forma compacta de criar listas
-    # Para cada notícia em noticias, inclua na lista se a categoria for igual à escolhida
-    noticias_filtradas = [noticia for noticia in noticias if noticia['categoria'] == categoria]
+    """Filtra notícias por categoria"""
     
-    # Inverte para mostrar as mais recentes primeiro
+    # Lê todas as notícias
+    noticias = ler_noticias()
+    
+    # Compreensão de lista: para cada notícia em noticias,
+    # mantenha apenas aquelas cuja categoria é igual à recebida
+    noticias_filtradas = [n for n in noticias if n['categoria'] == categoria]
+    
+    # Inverte para mostrar mais novas primeiro
     noticias_filtradas = noticias_filtradas[::-1]
     
-    # Mostra a mesma página inicial, mas só com as notícias filtradas
-    return render_template(
-        'index.html',
-        noticias=noticias_filtradas,
-        categorias=categorias,
-        categoria_atual=categoria  # Informa qual categoria está sendo mostrada
-    )
+    # Pega categorias para o menu (igual na home)
+    categorias = list(set([n['categoria'] for n in noticias]))
+    
+    # Mostra a mesma página index.html, mas só com notícias filtradas
+    return render_template('index.html', noticias=noticias_filtradas, categorias=categorias)
 
-# ============================================
-# PASSO 6: ROTA PARA VER UMA NOTÍCIA ESPECÍFICA
-# ============================================
-# <int:noticia_id> significa: o parâmetro é um número inteiro
-# Exemplo: /noticia/1 mostra a notícia com id = 1
+# <int:noticia_id> significa: a variável deve ser um NÚMERO INTEIRO
 @app.route("/noticia/<int:noticia_id>")
 def noticia_detalhe(noticia_id):
-    """
-    Mostra uma notícia completa quando o usuário clica nela.
-    noticia_id é o número que vem depois de /noticia/ na URL
-    """
-    # Procura a notícia com o id especificado
-    noticia_encontrada = None  # Começa como vazio
+    """Página de uma notícia específica"""
     
+    # Lê todas as notícias
+    noticias = ler_noticias()
+    
+    # Variável para guardar a notícia encontrada (começa vazia)
+    noticia_encontrada = None
+    
+    # Percorre todas as notícias procurando pelo id
+    for noticia in noticias:
+        if noticia['id'] == noticia_id:
+            # Achou! Guarda a notícia
+            noticia_encontrada = noticia
+            # Aumenta o contador de visualizações
+            noticia['visualizacoes'] += 1
+            # Para de procurar (já achou)
+            break
+    
+    # Se encontrou a notícia
+    if noticia_encontrada:
+        # Salva as notícias (com a visualização atualizada)
+        salvar_noticias(noticias)
+        # Mostra a página da notícia, enviando a notícia encontrada
+        return render_template('noticia.html', noticia=noticia_encontrada)
+    
+    # Se não encontrou, mostra erro 404 (página não encontrada)
+    return "Notícia não encontrada", 404
+
+# ============================================
+# ROTAS DE ADMIN (PROTEGIDAS POR SENHA)
+# ============================================
+
+# methods=['GET', 'POST'] significa:
+# - GET: quando alguém ACESSA a página
+# - POST: quando alguém ENVIA o formulário
+@app.route("/admin/login", methods=['GET', 'POST'])
+def admin_login():
+    """Página de login do admin"""
+    
+    # Se o método for POST (enviou formulário)
+    if request.method == 'POST':
+        # Pega os dados digitados no formulário
+        username = request.form['username']
+        password = request.form['password']
+        
+        # Verifica se usuário e senha conferem com os salvos
+        if username == ADMIN_USER and password == ADMIN_PASS:
+            # Se acertou, MARCA na sessão que admin está logado
+            # Isto é a MAGIA: agora o site "lembra" que você é admin
+            session['admin_logado'] = True
+            # Redireciona para o painel admin
+            return redirect('/admin/painel')
+        else:
+            # Se errou, mostra a página de login com mensagem de erro
+            return render_template('admin_login.html', erro="Usuário ou senha inválidos")
+    
+    # Se método for GET (só acessou a página), mostra formulário vazio
+    return render_template('admin_login.html')
+
+@app.route("/admin/logout")
+def admin_logout():
+    """Faz logout do admin"""
+    
+    # Remove a marca de admin logado da sessão
+    # pop remove o item, None é valor padrão se não existir
+    session.pop('admin_logado', None)
+    # Redireciona para a página inicial
+    return redirect('/')
+
+# ============================================
+# FUNÇÃO DECORADORA - PROTEGE ROTAS ADMIN
+# ============================================
+
+def admin_required(f):
+    """Decorator para verificar se o admin está logado"""
+    
+    def decorated_function(*args, **kwargs):
+        # Verifica se NÃO está logado
+        if not session.get('admin_logado'):
+            # Se não estiver, manda para o login
+            return redirect('/admin/login')
+        # Se estiver, executa a função original
+        return f(*args, **kwargs)
+    
+    # Mantém o nome original da função (para não confundir o Flask)
+    decorated_function.__name__ = f.__name__
+    return decorated_function
+
+# ============================================
+# ROTAS ADMIN (PROTEGIDAS)
+# ============================================
+
+# @admin_required significa: só executa se admin estiver logado!
+@app.route("/admin/painel")
+@admin_required
+def admin_painel():
+    """Painel administrativo - lista todas as notícias"""
+    
+    # Lê todas as notícias
+    noticias = ler_noticias()
+    # Inverte (mais novas primeiro)
+    noticias = noticias[::-1]
+    # Mostra painel com a lista de notícias
+    return render_template('admin.html', noticias=noticias)
+
+@app.route("/admin/criar", methods=['GET', 'POST'])
+@admin_required
+def admin_criar():
+    """Criar nova notícia"""
+    
+    # Se enviou o formulário
+    if request.method == 'POST':
+        # Lê notícias existentes
+        noticias = ler_noticias()
+        
+        # Define o ID da nova notícia
+        novo_id = 1
+        if noticias:
+            # Pega o maior ID existente e soma 1
+            # max([n['id'] for n in noticias]) encontra o maior id
+            novo_id = max([n['id'] for n in noticias]) + 1
+        
+        # Cria um dicionário com os dados do formulário
+        nova_noticia = {
+            'id': novo_id,
+            'titulo': request.form['titulo'],
+            'resumo': request.form['resumo'],
+            'conteudo': request.form['conteudo'],
+            'autor': request.form['autor'],
+            'data': request.form['data'],
+            'categoria': request.form['categoria'],
+            'visualizacoes': 0  # Nova notícia começa com 0 views
+        }
+        
+        # Adiciona a nova notícia à lista
+        noticias.append(nova_noticia)
+        # Salva a lista atualizada no JSON
+        salvar_noticias(noticias)
+        # Volta para o painel
+        return redirect('/admin/painel')
+    
+    # Se for GET (acessou a página), mostra formulário vazio
+    # noticia=None indica que é criação (não tem notícia para editar)
+    return render_template('editar.html', noticia=None)
+
+@app.route("/admin/editar/<int:noticia_id>", methods=['GET', 'POST'])
+@admin_required
+def admin_editar(noticia_id):
+    """Editar notícia existente"""
+    
+    # Lê todas as notícias
+    noticias = ler_noticias()
+    
+    # Procura a notícia com o id recebido
+    noticia_encontrada = None
     for noticia in noticias:
         if noticia['id'] == noticia_id:
             noticia_encontrada = noticia
-            # Incrementa o contador de visualizações (só por diversão)
-            noticia['visualizacoes'] += 1
-            break  # Para de procurar depois que encontra
+            break
     
-    # Se não encontrou a notícia, mostra página 404
-    if noticia_encontrada is None:
-        return "Notícia não encontrada", 404
+    # Se enviou o formulário (POST)
+    if request.method == 'POST':
+        # Atualiza os campos da notícia com os dados do formulário
+        noticia_encontrada['titulo'] = request.form['titulo']
+        noticia_encontrada['resumo'] = request.form['resumo']
+        noticia_encontrada['conteudo'] = request.form['conteudo']
+        noticia_encontrada['autor'] = request.form['autor']
+        noticia_encontrada['data'] = request.form['data']
+        noticia_encontrada['categoria'] = request.form['categoria']
+        
+        # Salva a lista atualizada
+        salvar_noticias(noticias)
+        # Volta para o painel
+        return redirect('/admin/painel')
     
-    # Pega 3 notícias aleatórias para sugerir (as primeiras 3 diferentes da atual)
-    noticias_sugeridas = []
-    for noticia in noticias:
-        if noticia['id'] != noticia_id and len(noticias_sugeridas) < 3:
-            noticias_sugeridas.append(noticia)
+    # Se for GET, mostra formulário PREENCHIDO com os dados atuais
+    return render_template('editar.html', noticia=noticia_encontrada)
+
+@app.route("/admin/deletar/<int:noticia_id>")
+@admin_required
+def admin_deletar(noticia_id):
+    """Deletar notícia"""
     
-    # Mostra a página da notícia
-    return render_template(
-        'noticia.html',
-        noticia=noticia_encontrada,
-        noticias_sugeridas=noticias_sugeridas
-    )
+    # Lê todas as notícias
+    noticias = ler_noticias()
+    
+    # Cria nova lista contendo apenas notícias com id DIFERENTE do recebido
+    # Isso remove a notícia que queremos deletar
+    noticias = [n for n in noticias if n['id'] != noticia_id]
+    
+    # Salva a lista (sem a notícia deletada)
+    salvar_noticias(noticias)
+    # Volta para o painel
+    return redirect('/admin/painel')
 
 # ============================================
-# PASSO 7: ROTA SOBRE (PÁGINA DE INFORMAÇÕES)
+# PONTO DE ENTRADA - INICIA O SERVIDOR
 # ============================================
-@app.route("/sobre")
-def sobre():
-    """
-    Página com informações sobre o site e sua temática maid.
-    """
-    return render_template(
-        'sobre.html',
-        categorias=categorias
-    )
 
-# ============================================
-# PASSO 8: INICIAR O SERVIDOR
-# ============================================
-# Este bloco só executa se o arquivo for rodado diretamente
-# (não quando é importado por outro arquivo)
+# Este bloco só executa se o arquivo for RODADO DIRETAMENTE
+# (não quando importado por outro arquivo)
 if __name__ == "__main__":
-    # app.run() inicia o servidor web
-    # debug=True significa que o servidor reinicia automaticamente quando mudamos o código
-    # Isso é ótimo para desenvolvimento, mas NÃO use em produção
+    # Inicia o servidor web
+    # debug=True significa:
+    # - Mostra erros detalhados
+    # - Reinicia automaticamente quando mudamos o código
     app.run(debug=True)
