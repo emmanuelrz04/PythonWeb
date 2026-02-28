@@ -1,0 +1,319 @@
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', 'Arial', sans-serif;
+}
+
+/* ============================================
+   CORES DO TEMA
+   ============================================ */
+:root {
+    --rosa-principal: #ff9eb5;
+    --rosa-escuro: #ff7b9c;
+    --branco: #fffcf9;
+    --cinza-claro: #fdf0f5;
+    --roxo-suave: #d4b1ff;
+    --preto-suave: #4a4a4a;
+    --sombra: rgba(255, 158, 181, 0.3);
+}
+
+/* ============================================
+   CORPO DA PÁGINA
+   ============================================ */
+body {
+    background-color: var(--cinza-claro);
+    background-image: 
+        linear-gradient(45deg, var(--rosa-principal) 1px, transparent 1px),
+        linear-gradient(-45deg, var(--rosa-principal) 1px, transparent 1px);
+    background-size: 30px 30px;
+    min-height: 100vh;
+    color: var(--preto-suave);
+}
+
+/* ============================================
+   CONTAINER PRINCIPAL
+   ============================================ */
+.container {
+    max-width: 1200px;
+    margin: 20px auto;
+    background-color: rgba(255, 255, 255, 0.9);
+    backdrop-filter: blur(5px);
+    border-radius: 20px;
+    box-shadow: 0 10px 30px var(--sombra);
+    padding: 30px;
+    border: 2px solid var(--rosa-principal);
+}
+
+/* ============================================
+   CABEÇALHO
+   ============================================ */
+header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 15px;
+    padding: 30px;
+    background: linear-gradient(135deg, var(--rosa-principal), var(--roxo-suave));
+    border-radius: 15px;
+    margin-bottom: 30px;
+    border: 3px solid var(--branco);
+    box-shadow: 0 5px 0 var(--rosa-escuro);
+}
+
+.logo img {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    border: 3px solid var(--branco);
+}
+
+.site-title {
+    font-size: 36px;
+    color: var(--branco);
+    text-shadow: 3px 3px 0 var(--rosa-escuro);
+    margin: 10px 0;
+}
+
+nav ul {
+    display: flex;
+    list-style: none;
+    gap: 30px;
+}
+
+nav ul li a {
+    text-decoration: none;
+    color: var(--branco);
+    font-weight: bold;
+    padding: 10px 20px;
+    border-radius: 30px;
+    background-color: rgba(255, 255, 255, 0.2);
+    transition: all 0.3s;
+}
+
+nav ul li a:hover {
+    background-color: var(--branco);
+    color: var(--rosa-escuro);
+    transform: translateY(-3px);
+}
+
+/* ============================================
+   TÍTULOS - SEM ESTRELINHAS
+   ============================================ */
+h1 {
+    color: var(--rosa-escuro);
+    border-left: 10px solid var(--rosa-principal);
+    padding-left: 20px;
+    margin: 30px 0 20px;
+}
+
+/* Remove qualquer pseudo-elemento */
+h1::after, h2::after, h3::after {
+    content: none;
+    display: none;
+}
+
+/* ============================================
+   CATEGORIAS - ORGANIZADAS VERTICALMENTE
+   ============================================ */
+.categorias {
+    margin: 20px 0;
+    color: #b3005c;
+}
+
+.categorias h3 {
+    color: var(--rosa-escuro);
+    margin-bottom: 15px;
+}
+
+.categorias-lista {
+    list-style: none;
+    padding: 0;
+}
+
+.categorias-lista li {
+    margin-bottom: 10px;
+}
+
+.categorias-lista li a {
+    display: block;
+    padding: 10px 15px;
+    background-color: var(--cinza-claro);
+    border-radius: 8px;
+    text-decoration: none;
+    color: var(--preto-suave);
+    border-left: 5px solid var(--rosa-principal);
+    transition: all 0.3s;
+    width: 100%;
+}
+
+.categorias-lista li a:hover {
+    background-color: var(--rosa-principal);
+    color: var(--branco);
+    transform: translateX(5px);
+}
+
+/* ============================================
+   GRADE DE NOTÍCIAS
+   ============================================ */
+.noticias-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    gap: 25px;
+    margin: 30px 0;
+}
+
+/* ============================================
+   CARD DE NOTÍCIA
+   ============================================ */
+.noticia-card {
+    background-color: var(--branco);
+    border-radius: 20px;
+    padding: 20px;
+    box-shadow: 0 5px 15px var(--sombra);
+    border: 2px solid var(--rosa-principal);
+    transition: all 0.3s;
+    position: relative;
+    overflow: hidden;
+}
+
+/* BABADO DECORATIVO NO CARD */
+.noticia-card::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 10px;
+    background: repeating-linear-gradient(
+        45deg,
+        var(--rosa-principal),
+        var(--rosa-principal) 10px,
+        var(--branco) 10px,
+        var(--branco) 20px
+    );
+}
+
+.noticia-card:hover {
+    transform: translateY(-10px) rotate(1deg);
+    box-shadow: 0 15px 30px var(--rosa-escuro);
+}
+
+.noticia-categoria {
+    display: inline-block;
+    background-color: var(--roxo-suave);
+    color: var(--branco);
+    padding: 5px 15px;
+    border-radius: 30px;
+    font-size: 12px;
+    font-weight: bold;
+    margin-bottom: 15px;
+    border: 2px solid var(--branco);
+}
+
+.noticia-card h3 {
+    font-size: 20px;
+    margin: 10px 0;
+    color: var(--preto-suave);
+}
+
+.noticia-card h3 a {
+    text-decoration: none;
+    color: var(--preto-suave);
+    transition: color 0.3s;
+}
+
+.noticia-card h3 a:hover {
+    color: var(--rosa-escuro);
+}
+
+.noticia-resumo {
+    color: #666;
+    line-height: 1.6;
+    margin: 15px 0;
+    font-size: 14px;
+}
+
+.noticia-meta {
+    display: flex;
+    justify-content: space-between;
+    color: #999;
+    font-size: 12px;
+    border-top: 2px dashed var(--rosa-principal);
+    padding-top: 15px;
+    margin-top: 15px;
+}
+
+/* ============================================
+   BOTÃO LER MAIS
+   ============================================ */
+.btn-maid {
+    display: inline-block;
+    background-color: var(--rosa-principal);
+    color: var(--branco);
+    padding: 10px 25px;
+    border-radius: 30px;
+    text-decoration: none;
+    font-weight: bold;
+    border: 3px solid var(--branco);
+    box-shadow: 0 3px 0 var(--rosa-escuro);
+    transition: all 0.3s;
+}
+
+.btn-maid:hover {
+    background-color: var(--rosa-escuro);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 0 var(--rosa-escuro);
+}
+
+/* ============================================
+   RODAPÉ
+   ============================================ */
+footer {
+    text-align: center;
+    padding: 30px;
+    margin-top: 50px;
+    background: linear-gradient(135deg, var(--rosa-principal), var(--roxo-suave));
+    border-radius: 15px;
+    color: var(--branco);
+    border: 3px solid var(--branco);
+}
+
+/* Remove pseudo-elementos do rodapé */
+footer::before, footer::after {
+    content: none;
+    display: none;
+}
+
+/* ============================================
+   RESPONSIVIDADE
+   ============================================ */
+@media (max-width: 768px) {
+    .container {
+        padding: 15px;
+        margin: 10px;
+    }
+    
+    header {
+        flex-direction: column;
+        gap: 20px;
+    }
+    
+    nav ul {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 10px;
+    }
+    
+    .noticias-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .noticia-meta {
+        flex-direction: column;
+        gap: 5px;
+        text-align: center;
+    }
+}
