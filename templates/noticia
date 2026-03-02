@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ noticia.titulo }} - Maid in Dev</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <style>
+        .noticia-completa {
+            background: white;
+            padding: 40px;
+            border-radius: 30px;
+            border: 3px solid #ff9eb5;
+            box-shadow: 0 8px 0 #ff7b9c;
+            margin: 30px 0;
+        }
+        
+        .noticia-titulo {
+            color: #b3005c;
+            font-size: 36px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        .noticia-info {
+            display: flex;
+            justify-content: space-between;
+            color: #666;
+            font-size: 16px;
+            margin-bottom: 30px;
+            border-bottom: 2px dashed #ff9eb5;
+            padding-bottom: 20px;
+        }
+        
+        .noticia-conteudo {
+            color: #333;
+            line-height: 1.8;
+            font-size: 18px;
+        }
+        
+        .noticia-conteudo p {
+            margin-bottom: 20px;
+        }
+        
+        .voltar-noticia {
+            text-align: center;
+            margin-top: 40px;
+        }
+        
+        .btn-voltar-noticia {
+            display: inline-block;
+            background: linear-gradient(135deg, #ff9eb5, #ff7b9c);
+            color: white;
+            padding: 15px 50px;
+            border-radius: 40px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 18px;
+            border: 3px solid white;
+            box-shadow: 0 5px 0 #b3005c;
+            transition: all 0.3s;
+        }
+        
+        .btn-voltar-noticia:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 0 #b3005c;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="logo">
+                <img src="/static/images/favicon.png" alt="Maid">
+            </div>
+            <h1 class="site-title">Maid in Dev</h1>
+            <nav>
+                <ul>
+                    <li><a href="/">Início</a></li>
+                    <li><a href="/sobre">Sobre</a></li>
+                </ul>
+            </nav>
+        </header>
+
+        <div class="noticia-completa">
+            <h1 class="noticia-titulo">{{ noticia.titulo }}</h1>
+            
+            <div class="noticia-info">
+                <span>👤 {{ noticia.autor }}</span>
+                <span>📅 {{ noticia.data }}</span>
+                <span>👁️ {{ noticia.visualizacoes }} visualizações</span>
+                <span>🏷️ {{ noticia.categoria }}</span>
+            </div>
+            
+            <div class="noticia-conteudo">
+                {{ noticia.conteudo | safe }}
+            </div>
+            
+            <div class="voltar-noticia">
+                <a href="/" class="btn-voltar-noticia">← Voltar para o Início</a>
+            </div>
+        </div>
+
+        <footer>
+            <p>© 2026 Maid in Dev - Notícias de Tecnologia com Estética Maid</p>
+            <p>Feito com 💕 e 🎀 para fãs de animes e programação</p>
+        </footer>
+    </div>
+</body>
+</html>
