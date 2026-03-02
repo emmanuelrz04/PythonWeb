@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% if noticia %}Editar{% else %}Nova{% endif %} Notícia - Maid in Dev</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <style>
+        .form-container {
+            background: white;
+            padding: 40px;
+            border-radius: 30px;
+            border: 3px solid #ff9eb5;
+            box-shadow: 0 8px 0 #ff7b9c;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        h1 {
+            color: #b3005c;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        label {
+            color: #b3005c;
+            font-weight: bold;
+            display: block;
+            margin: 15px 0 5px;
+        }
+        input, textarea, select {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #ff9eb5;
+            border-radius: 15px;
+            font-size: 16px;
+        }
+        textarea {
+            min-height: 200px;
+            font-family: monospace;
+        }
+        .botoes {
+            display: flex;
+            gap: 20px;
+            margin-top: 30px;
+        }
+        .btn-salvar {
+            background: linear-gradient(135deg, #ff9eb5, #ff7b9c);
+            color: white;
+            padding: 15px 40px;
+            border: none;
+            border-radius: 40px;
+            font-size: 18px;
+            font-weight: bold;
+            border: 3px solid white;
+            box-shadow: 0 5px 0 #b3005c;
+            cursor: pointer;
+            flex: 1;
+        }
+        .btn-cancelar {
+            background: #ccc;
+            color: #666;
+            padding: 15px 40px;
+            border: none;
+            border-radius: 40px;
+            font-size: 18px;
+            font-weight: bold;
+            text-decoration: none;
+            text-align: center;
+            border: 3px solid white;
+            box-shadow: 0 5px 0 #999;
+            flex: 1;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="form-container">
+            <h1>{% if noticia %}✏️ Editar Notícia{% else %}📝 Nova Notícia{% endif %}</h1>
+            
+            <form method="POST">
+                <label>Título:</label>
+                <input type="text" name="titulo" value="{{ noticia.titulo if noticia else '' }}" required>
+                
+                <label>Resumo (aparece na página inicial):</label>
+                <input type="text" name="resumo" value="{{ noticia.resumo if noticia else '' }}" required>
+                
+                <label>Conteúdo (pode usar HTML):</label>
+                <textarea name="conteudo" required>{{ noticia.conteudo if noticia else '' }}</textarea>
+                
+                <label>Autor:</label>
+                <input type="text" name="autor" value="{{ noticia.autor if noticia else '' }}" required>
+                
+                <label>Data:</label>
+                <input type="text" name="data" value="{{ noticia.data if noticia else '' }}" placeholder="Ex: 26 de Fevereiro de 2026" required>
+                
+                <label>Categoria:</label>
+                <input type="text" name="categoria" value="{{ noticia.categoria if noticia else '' }}" required>
+                
+                <div class="botoes">
+                    <button type="submit" class="btn-salvar">💾 Salvar</button>
+                    <a href="/admin/painel" class="btn-cancelar">↩️ Cancelar</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+</html>
