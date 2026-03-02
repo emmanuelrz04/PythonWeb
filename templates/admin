@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Painel Admin - Maid in Dev</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Arial, sans-serif;
+        }
+        
+        body {
+            background: #fdf0f5;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            border: 2px solid #ff9eb5;
+        }
+        
+        .admin-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 2px dashed #ff9eb5;
+        }
+        
+        h1 {
+            color: #b3005c;
+            font-size: 32px;
+        }
+        
+        .btn-novo {
+            background: linear-gradient(135deg, #ff9eb5, #ff7b9c);
+            color: white;
+            padding: 12px 25px;
+            border-radius: 40px;
+            text-decoration: none;
+            font-weight: bold;
+            border: 3px solid white;
+            box-shadow: 0 4px 0 #b3005c;
+            transition: all 0.3s;
+        }
+        
+        .btn-novo:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 0 #b3005c;
+        }
+        
+        .logout {
+            color: #b3005c;
+            text-decoration: none;
+            margin-left: 20px;
+            font-weight: bold;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+        }
+        
+        th {
+            background: #ff9eb5;
+            color: white;
+            padding: 15px;
+            text-align: left;
+            font-size: 16px;
+        }
+        
+        td {
+            padding: 15px;
+            border-bottom: 1px dashed #ff9eb5;
+            color: #333;
+        }
+        
+        .acoes a {
+            text-decoration: none;
+            padding: 8px 15px;
+            border-radius: 20px;
+            margin-right: 8px;
+            font-size: 14px;
+            font-weight: bold;
+            color: white;
+            display: inline-block;
+        }
+        
+        .editar {
+            background: #d4b1ff;
+            border: 2px solid white;
+            box-shadow: 0 3px 0 #7b1fa2;
+        }
+        
+        .deletar {
+            background: #ff7b9c;
+            border: 2px solid white;
+            box-shadow: 0 3px 0 #b3005c;
+        }
+        
+        .editar:hover, .deletar:hover {
+            transform: translateY(-2px);
+        }
+        
+        .vazio {
+            text-align: center;
+            padding: 50px;
+            color: #999;
+            font-size: 18px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="admin-header">
+            <h1>📋 Painel de Controle</h1>
+            <div>
+                <a href="/admin/criar" class="btn-novo">➕ Nova Notícia</a>
+                <a href="/admin/logout" class="logout">🚪 Sair</a>
+            </div>
+        </div>
+
+        <div>
+            {% if noticias %}
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Título</th>
+                        <th>Categoria</th>
+                        <th>Autor</th>
+                        <th>Data</th>
+                        <th>Visualizações</th>
+                        <th>Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for noticia in noticias %}
+                    <tr>
+                        <td>{{ noticia.id }}</td>
+                        <td>{{ noticia.titulo }}</td>
+                        <td>{{ noticia.categoria }}</td>
+                        <td>{{ noticia.autor }}</td>
+                        <td>{{ noticia.data }}</td>
+                        <td>{{ noticia.visualizacoes }}</td>
+                        <td class="acoes">
+                            <a href="/admin/editar/{{ noticia.id }}" class="editar">✏️ Editar</a>
+                            <a href="/admin/deletar/{{ noticia.id }}" class="deletar" onclick="return confirm('Tem certeza que deseja deletar esta notícia?')">🗑️ Deletar</a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            {% else %}
+            <div class="vazio">
+                <p>📭 Nenhuma notícia encontrada</p>
+                <p><a href="/admin/criar" style="color: #b3005c;">Criar primeira notícia</a></p>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</body>
+</html>
