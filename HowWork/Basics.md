@@ -1,29 +1,37 @@
-   ANÁLOGIA
+# ANALOGY
 
-Cliente senta e pede -->	Usuário digita URL
+Client sits and orders → User types a URL
 
-Cozinha (backend) prepara --> Servidor Flask processa
+Kitchen (backend) prepares → Flask server processes
 
-Garçom leva o pedido -->	Rota direciona a requisição
+Waiter takes the order → Route directs the request
 
-Chef prepara a comida -->	Função Python executa
+Chef prepares the food → Python function executes
 
-Garçom entrega o prato -->	HTML é renderizado
+Waiter delivers the dish → HTML is rendered
 
-Em outra palavras:
+# In other words:
 
-1. USUÁRIO digita: http://127.0.0.1:5000/
-                ↓
-2. NAVEGADOR envia REQUISIÇÃO para o servidor
-                ↓
-3. SERVIDOR Flask recebe a requisição
-                ↓
-4. ROTEAMENTO: Flask procura a função certa (@app.route)
-                ↓
-5. FUNÇÃO Python executa (busca dados, processa)
-                ↓
-6. TEMPLATE recebe os dados e monta o HTML
-                ↓
-7. RESPOSTA volta para o navegador
-                ↓
-8. USUÁRIO vê a página linda
+USER types:
+http://127.0.0.1:5000/
+↓
+
+BROWSER sends a REQUEST to the server
+↓
+
+Flask SERVER receives the request
+↓
+
+ROUTING: Flask looks for the correct function (@app.route)
+↓
+
+Python FUNCTION executes (fetches data, processes logic)
+↓
+
+TEMPLATE receives the data and builds the HTML
+↓
+
+RESPONSE is sent back to the browser
+↓
+
+USER sees the beautiful page
