@@ -1,17 +1,49 @@
 # PythonWeb
-A documentação explicando cada elemento do código se localizará na pasta "HowWork":desde o frontend quanto o back. 
 
-# Detalhe muito importante:
-A lógica do código da aplicação "appy.py" se encontrará por hora em formato de comentários dentro do código. Esta medida foi realizada para facilitar o entendimento do código durante a fase de desenvolvimento, e portanto, ela será integrada a pasta mencionada.
+**A full-stack web application built with Python (Flask) on the backend and HTML/CSS on the frontend.**
 
-# Principais entregas do projeto:
+Detailed documentation explaining every element of the code — both frontend and backend — will be available in the **"HowWork"** folder.
 
-- Sistema completo de criação, edição e publicação de posts
+---
 
-- Interface temática com identidade visual personalizada
+## Important Note
 
-- Painel administrativo com autenticação e controle de acesso
+The application logic (in `app.py`) is currently documented through detailed comments within the code itself. This was done to make the development process clearer and easier to follow. Eventually, this documentation will be migrated to the "HowWork" folder.
 
-- Layout responsivo, adaptado para diferentes dispositivos
+---
 
-- Deploy em ambiente de produção concluído com sucesso
+## Key Features
+
+- Complete system for creating, editing, and publishing posts  
+- Themed interface with a custom visual identity  
+- Admin panel with authentication and access control  
+- Fully responsive layout (works on desktop, tablet, and mobile)  
+- Successfully deployed to production
+
+---
+
+## Tech Stack
+
+- **Backend:** Python, Flask, Jinja2, SQLite  
+- **Frontend:** HTML, CSS  
+- **Deployment:** PythonAnywhere  
+- **Version Control:** Git, GitHub
+
+---
+
+## Project Structure (soon)
+
+*(Optional: you can add a quick tree view of your folders here if you want)*
+
+---
+
+## Live Demo
+
+🔗 [maindindev.pythonanywhere.com](https://maindindev.pythonanywhere.com)
+
+---
+
+## Contact
+
+Developed by **Emmanuel Araujo**  
+🔗 LinkedIn: [linkedin.com/in/emmanuel-araujo-416203380](https://linkedin.com/in/emmanuel-araujo-416203380/)
