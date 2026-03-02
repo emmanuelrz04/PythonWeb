@@ -8,7 +8,7 @@ Detailed documentation explaining every element of the code — both frontend an
 
 ## Important Note
 
-The application logic (in `app.py`) is currently documented through detailed comments within the code itself. This was done to make the development process clearer and easier to follow. Eventually, this documentation will be migrated to the "HowWork" folder.
+The application logic (`front-end` and `back-end`) is currently documented through detailed comments within the code itself. This was done to make the development process clearer and easier to follow. Eventually, this documentation will be migrated to the "HowWork" folder.
 
 ---
 
