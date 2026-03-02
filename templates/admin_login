@@ -1,1 +1,90 @@
-
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Login - Maid in Dev</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Quicksand', Arial, sans-serif;
+        }
+        body {
+            background: linear-gradient(135deg, #fff0f5, #fce4ec);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        .login-box {
+            background: white;
+            padding: 40px;
+            border-radius: 30px;
+            border: 3px solid #ff9eb5;
+            box-shadow: 0 10px 0 #ff7b9c;
+            max-width: 400px;
+            width: 100%;
+        }
+        h1 {
+            color: #b3005c;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        input {
+            width: 100%;
+            padding: 15px;
+            margin: 10px 0;
+            border: 2px solid #ff9eb5;
+            border-radius: 40px;
+            font-size: 16px;
+            outline: none;
+        }
+        button {
+            background: linear-gradient(135deg, #ff9eb5, #ff7b9c);
+            color: white;
+            padding: 15px;
+            border: none;
+            border-radius: 40px;
+            font-size: 18px;
+            font-weight: bold;
+            border: 3px solid white;
+            box-shadow: 0 5px 0 #b3005c;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 20px;
+        }
+        .erro {
+            color: red;
+            text-align: center;
+            margin: 10px 0;
+        }
+        .link {
+            text-align: center;
+            margin-top: 20px;
+        }
+        .link a {
+            color: #b3005c;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-box">
+        <h1>🔐 Admin Login</h1>
+        {% if erro %}
+            <div class="erro">{{ erro }}</div>
+        {% endif %}
+        <form method="POST">
+            <input type="text" name="username" placeholder="Usuário" required>
+            <input type="password" name="password" placeholder="Senha" required>
+            <button type="submit">Entrar</button>
+        </form>
+        <div class="link">
+            <a href="/">← Voltar para o site</a>
+        </div>
+    </div>
+</body>
+</html>
